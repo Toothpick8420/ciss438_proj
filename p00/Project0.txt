@@ -1,0 +1,23 @@
+﻿Micah Arndt and Tristan Keith
+CISS 438
+Project 0
+Dr. Aturban
+
+                                    Project 0
+
+    Our final project for this semester will be a clone of an arcade game named 
+Street Fighter. Therefore, the name of the system in which our users will use 
+will be StreetFighter. The users for this project will be players who would like 
+to play Street Fighter. The primary way that our users will be using our system 
+is to play this game as if they were playing it in an arcade. This will be 
+accomplished by allowing users to enter inputs to move their character around and 
+attack their opponent. The system will have a variety of functions to help users 
+have fun and stay engaged within our game. One of these is updating the game 
+state, moving the player, and also making moves for the opponent's character. 
+Furthermore, another functional requirement of this game is a health and damage 
+system. This is helpful to helping the player achieve goals as these functions 
+are essential to a fun game experience similar to the original game, as it will 
+be a visual indicator for how well they are doing as well as how close they are 
+to achieving a victory state within the system. One of the final functional 
+requirements are graphics and sound effects. This will help the player interact 
+with and be immersed in the game, as a means of interacting with the system itself.
