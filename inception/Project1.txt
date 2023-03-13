@@ -1,0 +1,89 @@
+﻿Micah Arndt and Tristan Keith
+CISS 438
+Project 1
+Dr. Aturban
+
+
+Project Part I (Inception Phase) 
+Due date: March 13, 2023 
+- Name/Identify functionalities and Use Cases (functional requirements) of your system 
+Functionalities:
+* Choose Difficulty
+* Choose Player Character
+* Choose Level
+* Clock chooses a character
+* Play Match
+* Save Profile
+* Save High Scores
+
+
+Use Cases:
+* Use Case UC1: Play Street Fighter[a]
+        - Level: User Goal
+        - Actors: Player
+        - Stakeholders and Interests: Player- wants to play a game of Street Fighter
+        - Description: This use case begins when the player selects play game from the main scene.
+        They will then select their character and the level they will be playing, while the computer 
+        will select it’s character. The match will then initialize and the player will then play the 
+        match.
+* Use Case UC2: Register Profile
+        - Level: User Goal
+        - Stakeholders and Interests: Player- wants to register a player profile to save their stats 
+        for their previous games of Street Fighter.
+        - Description: This use case begins when a player selects the register profile option from 
+        the main screen. They will be prompted to create a username and password for their profile.
+        They will then be prompted for a username and password.
+* Use Case UC3: Select Profile
+        - Level: User Goal
+        - Stakeholders and Interests: Player- wants to access their profile to see their statistics.
+        - Description: The use case begins when a player selects the select profile option from the 
+        main screen. The player will then be prompted to enter their credentials. Afterwards, they 
+        will be allowed to see their stats from the main menu. 
+
+
+________________
+
+
+Non-Functional Requirements:
+* Music in the style of the old Street Fighter Games
+* Player Art
+*  Implemented using C++ and SDL
+* Licensed using Creative Commons Non-Commercial licensing
+ 
+- Identify use cases with high risk because they are the first to be implemented
+High Risk Use Cases with Analysis:
+* Use Case UC1: Play Street Fighter
+        - Level: User Goal
+        - Actors: Player, Clock
+        - Stakeholders and Interests: Player- wants to play a game of Street Fighter
+        - Description: This use case begins when the player selects play game from 
+        the main scene. They will then select their character and the level they will
+        be playing, while the computer will select it’s character. The match will then 
+        initialize and the player will then play the match.
+
+        Main Success Scenario:
+            1. Player selects play before being prompted to initialize the game, selecting difficulty, their character, and the level.
+            2. Clock selects a character.
+            3. Player and Clock characters move around the level until one wins.
+            4. Clock saves the match data to the profile.
+                    Alternatives:
+                    4a: If no profile is selected for the player, no match data is saved.
+
+
+* Use Case UC2: Register Profile
+        - Level: User Goal
+        - Actors: Player
+        - Stakeholders and Interests: Player- wants to register a player profile to save their stats for their previous games of Street Fighter.
+        - Description: This use case begins when a player selects the register profile option from the main screen. They will be prompted to create a username and password for their profile. They will then be prompted for a username and password.
+        Main Success Scenario:
+            1. Player selects Create Profile option.
+            2. Player enters their username and password.
+                    Alternatives:
+                    2a: If the entered username is already present in the Database, prompt the player again and Player repeats step 2.
+
+
+ 
+Use Cases implemented in the first iteration of the elaboration phase:
+    *  Play Street Fighter (Very Rough Version, without graphics. Simply using rectangles, not DB support)
+
+[a]Just defined use cases generally in this segment, as there is another part that requires us to define the use cases in depth.
