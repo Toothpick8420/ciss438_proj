@@ -1,7 +1,12 @@
-OBJS = main.cpp
+OBJS = *.cpp
 OBJ_NAME = app
+FLAGS = -w -lSDL2 -lSDL2_image -g
+
 all : $(OBJS)
-	g++ $(OBJS) -w -lSDL2 -lSDL2_image -o $(OBJ_NAME)
+	g++ $(OBJS) $(FLAGS) -o $(OBJ_NAME)
 
 run : 
 	./app
+
+
+

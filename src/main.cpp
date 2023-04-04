@@ -5,22 +5,16 @@
 #include <iostream>
 #include <stdio.h>
 
+#include "Constants.h"
+#include "Player.h"
 
 
-const int SCREEN_WIDTH = 640;
-const int SCREEN_HEIGHT = 480;
 std::string title = "Street Fighter Clone";
 SDL_Window* window = NULL;
 SDL_Surface* surface = NULL;
 
-SDL_Surface* player1 = NULL;
-SDL_Rect player1_rect = { 64, SCREEN_HEIGHT - 128 ,64, 128};
-SDL_Surface* player2 = NULL;
-SDL_Rect player2_rect = { SCREEN_WIDTH - 128, SCREEN_HEIGHT - 128, 64, 128};
-
 
 bool init();
-bool loadMedia();
 void close();
 
 int main(int argc, char *args[])
@@ -29,70 +23,71 @@ int main(int argc, char *args[])
     if (!init()) {
         printf("Failed  to initialize!\n");
     } else {
-        if (!loadMedia()) { 
-            printf("Failed to load media!\n");
-        } else { 
         
-            // Simple game loop
-            bool quit = false;
-            SDL_Event event;
-            while (!quit) {
+        Player player1("RedGuy.png", 64, SCREEN_HEIGHT - 128);
+        Player player2("BlueGuy.png", SCREEN_WIDTH - 128, SCREEN_HEIGHT - 128);
 
-                SDL_FillRect(surface, NULL, 
-                        SDL_MapRGB(surface->format, 0x00, 0x00, 0x00));
+        // Simple game loop
+        bool quit = false;
+        SDL_Event event;
+        while (!quit) {
 
-                // Add the images
-                SDL_BlitSurface(player1, NULL, surface, &player1_rect);
-                SDL_BlitSurface(player2, NULL, surface, &player2_rect);
+            // Clear the screen
+            SDL_FillRect(surface, NULL, 
+                    SDL_MapRGB(surface->format, 0x00, 0x00, 0x00));
 
-                // Update the surface            
-                SDL_UpdateWindowSurface(window);
+            // Update objects
+            player1.update();
+            player2.update();
 
-                while (SDL_PollEvent(&event)) {
-                    if (event.type == SDL_QUIT) quit = true;
+            // Add the images
+            SDL_BlitSurface(player1.surface(), NULL, surface, player1.rect());
+            SDL_BlitSurface(player2.surface(), NULL, surface, player2.rect());
 
-                    else if (event.type == SDL_KEYDOWN) {
-                        int key = event.key.keysym.sym;
+            // Update the surface            
+            SDL_UpdateWindowSurface(window);
 
-                        // Player 1 movements
-                        if (key == SDLK_a)
-                            player1_rect.x -= 5;
+            while (SDL_PollEvent(&event)) {
+                if (event.type == SDL_QUIT) quit = true;
 
-                        else if (key == SDLK_d)
-                            if (player1_rect.x + player1_rect.w < SCREEN_WIDTH) {
-                                player1_rect.x += 5;
-                            }
-                        
-                        if (key == SDLK_w)
-                            player1_rect.y -= 64;
+                if (event.type == SDL_KEYDOWN)
+                {
+                    if (event.key.keysym.sym == SDLK_w) {  
+                        player1.jump(); 
+                    }
 
-                        // Player 2 movements
-                        if (key == SDLK_LEFT)
-                            player2_rect.x -= 5;
-                        
-                        else if (key == SDLK_RIGHT)
-                            if (player2_rect.x + player2_rect.w < SCREEN_WIDTH) { 
-                                player2_rect.x += 5;
-                            }
-                        
-                        if (key == SDLK_UP)
-                            player2_rect.y -= 64;
+                    if (event.key.keysym.sym == SDLK_a) {
+                        player1.move_left();
+                    } else if (event.key.keysym.sym == SDLK_d) {
+                        player1.move_right();
+                    }
+
+
+                    if (event.key.keysym.sym == SDLK_UP) {
+                        player2.jump();
+                    }
+
+                    if (event.key.keysym.sym == SDLK_LEFT) {
+                        player2.move_left();
+                    } else if (event.key.keysym.sym == SDLK_RIGHT) {
+                        player2.move_right();
                     }
                 }
-                // Gravity
-                if (player1_rect.y + player1_rect.h < SCREEN_HEIGHT) {
-                    player1_rect.y += 5;
-                } else {
-                    player1_rect.y = SCREEN_HEIGHT - player1_rect.h;
-                }
+                if (event.type == SDL_KEYUP)
+                {
+                    // FIXME: Feels clunky right, when you stop you lose all 
+                    // momentum, would rather it act like jumping and slowly stop
+                    if (event.key.keysym.sym == SDLK_a || event.key.keysym.sym == SDLK_d) {
+                        player1.stop();
+                    }
 
-                if (player2_rect.y + player2_rect.h < SCREEN_HEIGHT) { 
-                    player2_rect.y += 5;
-                } else {
-                    player2_rect.y = SCREEN_HEIGHT - player2_rect.h;
+                     if (event.key.keysym.sym == SDLK_LEFT || event.key.keysym.sym == SDLK_RIGHT) {
+                        player2.stop();
+                     } 
                 }
-                SDL_Delay(33);
             }
+
+            SDL_Delay(33); // 30fps
         }
     }
     
@@ -128,30 +123,9 @@ bool init()
 }
 
 
-bool loadMedia()
-{
-    // Loadingn flag
-    bool success = true;
-
-    // Load images
-    player1 = IMG_Load("BlueGuy.png");
-    player2 = IMG_Load("RedGuy.png");
-
-    // Add more indepth error logging
-    if (player1 == NULL || player2 == NULL) {
-        printf("Unable to load an image! SDL_Error: %s\n: ", SDL_GetError());
-        success = false;
-    }
-
-    return success;
-}
-
-
 void close()
 {
     // Deallocate surface
-    SDL_FreeSurface(player1);
-    SDL_FreeSurface(player2);
     SDL_DestroyWindow(window);
     SDL_Quit();
 }
