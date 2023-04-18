@@ -73,7 +73,7 @@ High Risk Use Cases with Analysis:
 * Use Case UC2: Register Profile
         - Level: User Goal
         - Actors: Player
-        - Stakeholders and Interests: Player- wants to register a player profile to save their stats for their previous games of Street Fighter.
+        - Stakeholders and Interests: Player
         - Description: This use case begins when a player selects the register profile option from the main screen. They will be prompted to create a username and password for their profile. They will then be prompted for a username and password.
         Main Success Scenario:
             1. Player selects Create Profile option.
@@ -87,3 +87,4 @@ Use Cases implemented in the first iteration of the elaboration phase:
     *  Play Street Fighter (Very Rough Version, without graphics. Simply using rectangles, not DB support)
 
 [a]Just defined use cases generally in this segment, as there is another part that requires us to define the use cases in depth.
+
